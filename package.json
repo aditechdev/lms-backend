@@ -4,7 +4,10 @@
   "description": "LMS backend API, list of backend service which is common in LLMS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server",
+    "dev": "nodemon server"
+
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,12 @@
   "bugs": {
     "url": "https://github.com/aditechdev/lms-backend/issues"
   },
-  "homepage": "https://github.com/aditechdev/lms-backend#readme"
+  "homepage": "https://github.com/aditechdev/lms-backend#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
