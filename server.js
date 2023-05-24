@@ -33,7 +33,16 @@ const PORT = process.env.PORT || 5000;
 
 
 
-app.listen(
+const server = app.listen(
     PORT, console.log(`Server running in ${process.env.PORT} mode on PORT ${PORT} `)
 )
 // export express;
+
+//Handle unhandle promise rejection
+process.on('unhandledRejection', (err, Promise) => { 
+    console.log(`${err.message}`);
+    // close server and exit the process
+    server.close(
+        () => process.exit(1)
+    );
+});
