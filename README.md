@@ -7,3 +7,7 @@
 
 ## Task in this project
 - Setup Productiion and Development Environment
+- DotEnv SetUp
+
+## Note
+- npm run dev => to run development mode
