@@ -8,6 +8,7 @@
 ## Task in this project
 - Setup Productiion and Development Environment
 - DotEnv SetUp
+- Created Controller for the API
 
 ## Note
 - npm run dev => to run development mode
