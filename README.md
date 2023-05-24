@@ -6,6 +6,7 @@
 - nodemon
 - morgan
 - mongoose
+- colors
 
 ## Task in this project
 - Setup Productiion and Development Environment

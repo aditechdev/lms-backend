@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/aditechdev/lms-backend#readme",
   "dependencies": {
+    "colors": "^1.4.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^7.2.0",
