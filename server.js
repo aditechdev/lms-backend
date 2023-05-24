@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const logger = require("./middleware/logger");
+// const logger = require("./middleware/logger");
+const morgan = require("morgan");
 
 // Route file
 const bootcamp = require('./routes/bootcamp');
@@ -15,7 +16,12 @@ const app = express();
 // Mount router
 
 
-app.use(logger);
+// app.use(logger);
+// Dev Logging Environment
+if (process.env.NODE_ENV == "development") {
+    app.use(morgan('dev'));
+    
+}
 
 app.use('/api/v1/bootcamp', bootcamp);
 
