@@ -4,6 +4,7 @@
 - .env
 - express
 - nodemon
+- morgan
 
 ## Task in this project
 - Setup Productiion and Development Environment
