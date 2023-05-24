@@ -2,15 +2,17 @@ const express = require("express");
 const dotenv = require("dotenv");
 // const logger = require("./middleware/logger");
 const morgan = require("morgan");
+const connectDb = require("./config/db")
 
-// Route file
-const bootcamp = require('./routes/bootcamp');
 
 // Load env Variables
 dotenv.config({
     path: "./config/config.env"
 });
+connectDb();
 
+// Route file
+const bootcamp = require('./routes/bootcamp');
 const app = express();
 
 // Mount router
