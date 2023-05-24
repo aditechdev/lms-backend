@@ -5,6 +5,7 @@
 - express
 - nodemon
 - morgan
+- mongoose
 
 ## Task in this project
 - Setup Productiion and Development Environment
