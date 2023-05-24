@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const logger = require("./middleware/logger");
 
 // Route file
 const bootcamp = require('./routes/bootcamp');
@@ -13,7 +14,11 @@ const app = express();
 
 // Mount router
 
+
+app.use(logger);
+
 app.use('/api/v1/bootcamp', bootcamp);
+
 
 
 const PORT = process.env.PORT || 5000;
