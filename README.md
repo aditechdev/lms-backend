@@ -8,6 +8,7 @@
 - mongoose
 - colors
 - slugify
+- node-geocoder
 
 ## Task in this project
 - Setup Productiion and Development Environment
@@ -16,3 +17,7 @@
 
 ## Note
 - npm run dev => to run development mode
+
+## Other
+For geo coding
+https://developer.mapquest.com/user/me/profile
