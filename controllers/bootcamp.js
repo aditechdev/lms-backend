@@ -1,3 +1,5 @@
+const errorHandler = require('../middleware/error');
+const ErrorResponse = require('../utils/errorResponse')
 const LMS = require('../models/Lmsmodel');
 
 //@desc     Get All bootcamp
@@ -15,10 +17,8 @@ exports.getBootcamp = async (req, res, next) => {
         });
 
     } catch (e) {
-        console.log(e);
-        res.status(400).json({
-            success: false,
-        })
+        // console.log(e);
+        next(e);
 
     }
 }
@@ -30,8 +30,7 @@ exports.getSingleBootcamp = async (req, res, next) => {
     try {
         const lms = await LMS.findById(req.params.id)
         if (!lms) {
-            return res.status(400).json({ success: false, data: [] });
-
+            return next(new ErrorResponse(`Resources not found of ${req.params.id}`, 404));
         }
 
         res.status(200).json({
@@ -40,8 +39,10 @@ exports.getSingleBootcamp = async (req, res, next) => {
         });
 
     } catch (e) {
-        console.log(e);
-        res.status(400).json({ success: false, data: [] });
+        // console.log(e);
+        // res.status(400).json({ success: false, data: [] });
+        // next(new ErrorResponse(`Bootcamp not found of ${req.params.id}`, 404));
+        next(e);
     }
 
 
@@ -60,9 +61,7 @@ exports.createBootcamp = async (req, res, next) => {
         });
     } catch (error) {
         console.log(`${error}`.red);
-        res.status(500).json({
-            success: false
-        })
+        next(error);
     }
 
 }
@@ -79,14 +78,13 @@ exports.updateBootcamp = async (req, res, next) => {
         });
 
         if (!lms) {
-            return res.status(400).json({ success: false, msg: "OOOOOKOK" });
+            return next(new ErrorResponse(`Resources not found of ${req.params.id}`, 404));
 
         }
         res.status(200).json({ success: true, data: lms });
 
     } catch (error) {
-        console.log(error);
-        return res.status(400).json({ success: false });
+        next(error);
 
     }
 
@@ -100,7 +98,7 @@ exports.deleteBootcamp = async (req, res, next) => {
     try {
         const lms = await LMS.findByIdAndDelete(req.params.id);
         if (!lms) {
-            return res.status(400).json({ success: false });
+            return next(new ErrorResponse(`Resources not found of ${req.params.id}`, 404));
         }
         res.status(200).json({
             success: true,
@@ -108,9 +106,7 @@ exports.deleteBootcamp = async (req, res, next) => {
         })
 
     } catch (e) {
-        res.status(400).json({
-            success: false
-        })
+        next(e);
     }
     
 }

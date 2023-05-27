@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 // const logger = require("./middleware/logger");
 const colors = require('colors');
 const morgan = require("morgan");
+const errorHandler = require("./middleware/error");
+
 const connectDb = require("./config/db")
 
 
@@ -19,6 +21,7 @@ const app = express();
 // Body Parser
 app.use(express.json());
 
+
 // Mount router
 
 
@@ -30,6 +33,8 @@ if (process.env.NODE_ENV == "development") {
 }
 
 app.use('/api/v1/bootcamp', bootcamp);
+app.use(errorHandler);
+
 
 
 
