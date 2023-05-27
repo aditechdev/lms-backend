@@ -17,6 +17,7 @@
 
 ## Note
 - npm run dev => to run development mode
+- run seeder file node seeder -i
 
 ## Other
 For geo coding
