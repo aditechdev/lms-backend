@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const LMSSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: [true, 'Please add a name'],
+        required: [true, 'Please add a name'],
         unique: true, 
         trim: true, 
         maxLength: [50, 'Name cannot be more than 50 characters']
@@ -11,7 +11,7 @@ const LMSSchema = new mongoose.Schema({
     slug: String,
     description: {
         type: String,
-        require: [true, 'Please add description'],
+        required: [true, 'Please add description'],
         maxLength:[500, "Description cannot be more than 500"]
     },
     website: {
@@ -37,7 +37,7 @@ const LMSSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        require: [
+        required: [
             true,
             'Please add address'
         ]
@@ -47,11 +47,9 @@ const LMSSchema = new mongoose.Schema({
         type: {
             type: String,
             enum: ['Point'],
-            require: true,
         },
         coordinates: {
             type: [Number],
-            require: true,
             index: '2dsphere'
         },
         formaattedAdress: String,
@@ -63,7 +61,7 @@ const LMSSchema = new mongoose.Schema({
     },
     careers: {
         type: [String],
-        require: true,
+        required: true,
         enum: [
             'Web Development',
             'Mobile Development',
