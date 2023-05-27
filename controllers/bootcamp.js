@@ -25,11 +25,24 @@ exports.getBootcamp = async (req, res, next) => {
 //@desc     Get single bootcamp
 //@route    Get Api '/api/v1/bootcamp/:id'
 //@acess    public
-exports.getSingleBootcamp = (req, res, next) => {
-    res.status(200).json({
-        success: true,
-        msg: `Get bootcamp ${req.params.id}`
-    });
+exports.getSingleBootcamp = async (req, res, next) => {
+    try {
+        const lms = await LMS.findById(req.params.id)
+        if (!lms) {
+            return res.status(400).json({ success: false, data: [] });
+
+        }
+
+        res.status(200).json({
+            success: true,
+            data: lms
+        });
+
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({ success: false, data: [] });
+    }
+
 
 }
 
