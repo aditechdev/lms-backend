@@ -3,11 +3,23 @@ const LMS = require('../models/Lmsmodel');
 //@desc     Get All bootcamp
 //@route    Get Api '/api/v1/bootcamp'
 //@acess    public
-exports.getBootcamp = (req, res, next) => {
-    res.status(200).json({
-        success: true,
-        msg: "Show all bootcamp",
-    });
+exports.getBootcamp = async (req, res, next) => {
+
+    try {
+
+        const data = await LMS.find();
+        res.status(200).json({
+            success: true,
+            data: data,
+        });
+
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({
+            success: false,
+        })
+
+    }
 }
 
 //@desc     Get single bootcamp
@@ -24,20 +36,20 @@ exports.getSingleBootcamp = (req, res, next) => {
 //@desc     Create new bootcamp
 //@route    POST Api '/api/v1/bootcamp/:id'
 //@acess    Private
-exports.createBootcamp = async(req, res, next) => {
+exports.createBootcamp = async (req, res, next) => {
     // console.log(req.body);
-   try {
-       const lms = await LMS.create(req.body);
-       res.status(201).json({
-           success: true,
-           data: lms
-       });
-   } catch (error) {
-       console.log(`${error}`.red);
-       res.status(500).json({
-           success: false
-       })
-   }
+    try {
+        const lms = await LMS.create(req.body);
+        res.status(201).json({
+            success: true,
+            data: lms
+        });
+    } catch (error) {
+        console.log(`${error}`.red);
+        res.status(500).json({
+            success: false
+        })
+    }
 
 }
 
