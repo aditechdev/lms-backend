@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify')
 
 const LMSSchema = new mongoose.Schema({
     name: {
@@ -102,6 +103,14 @@ const LMSSchema = new mongoose.Schema({
         default: Date.now,
     }
 
+})
+
+// Create lms slug from the name
+
+LMSSchema.pre('save', function (next) { 
+    this.slug = slugify(this.name, {lower: true});
+    // console.log("Slugify ran", this.name);
+    next();
 })
 
 module.exports = mongoose.model('LMS', LMSSchema);

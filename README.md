@@ -7,6 +7,7 @@
 - morgan
 - mongoose
 - colors
+- slugify
 
 ## Task in this project
 - Setup Productiion and Development Environment
