@@ -16,6 +16,9 @@ connectDb();
 const bootcamp = require('./routes/bootcamp');
 const app = express();
 
+// Body Parser
+app.use(express.json());
+
 // Mount router
 
 
