@@ -10,6 +10,7 @@ exports.getBootcamp = async (req, res, next) => {
         const data = await LMS.find();
         res.status(200).json({
             success: true,
+            count: data.length,
             data: data,
         });
 
@@ -69,20 +70,47 @@ exports.createBootcamp = async (req, res, next) => {
 //@desc     Update bootcamp
 //@route    PUT Api '/api/v1/bootcamp/:id'
 //@acess    Private
-exports.updateBootcamp = (req, res, next) => {
-    res.status(200).json({
-        success: true,
-        msg: `Update bootcamp ${req.params.id}`
-    });
+exports.updateBootcamp = async (req, res, next) => {
+
+    try {
+        const lms = await LMS.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
+
+        if (!lms) {
+            return res.status(400).json({ success: false, msg: "OOOOOKOK" });
+
+        }
+        res.status(200).json({ success: true, data: lms });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({ success: false });
+
+    }
 
 }
 
 //@desc     Delete bootcamp
 //@route    Delete Api '/api/v1/bootcamp/:id'
 //@acess    Private
-exports.deleteBootcamp = (req, res, next) => {
-    res.status(200).json({
-        success: true,
-        msg: `Delete bootcamp ${req.params.id}`
-    });
+exports.deleteBootcamp = async (req, res, next) => {
+
+    try {
+        const lms = await LMS.findByIdAndDelete(req.params.id);
+        if (!lms) {
+            return res.status(400).json({ success: false });
+        }
+        res.status(200).json({
+            success: true,
+            data: {}
+        })
+
+    } catch (e) {
+        res.status(400).json({
+            success: false
+        })
+    }
+    
 }
