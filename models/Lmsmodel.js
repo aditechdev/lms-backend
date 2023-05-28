@@ -103,6 +103,9 @@ const LMSSchema = new mongoose.Schema({
         default: Date.now,
     }
 
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 })
 
 // Create lms slug from the name
@@ -131,6 +134,15 @@ LMSSchema.pre('save', async function (next) {
     this.address = undefined;
     next();
 })
+
+LMSSchema.virtual('courses', {
+    ref: 'Course',
+    localField: '_id',
+    foreignField: 'bootcamp',
+    justOne: false
+})
+
+
 
 
 module.exports = mongoose.model('LMS', LMSSchema);
