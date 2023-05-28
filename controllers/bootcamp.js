@@ -8,8 +8,45 @@ const asyncHandler = require('../middleware/async');
 //@route    Get Api '/api/v1/bootcamp'
 //@acess    public
 exports.getBootcamp = asyncHandler(async (req, res, next) => {
+    // console.log(req.query);
+    let query;
+    // Copy request query
+    const reqQuery = { ...req.query };
 
-    const data = await LMS.find();
+    // Field to exclude
+    const removeFields = ['select', 'sort'];
+
+    // Loop over remove field and delete them for req querry
+    removeFields.forEach(param => delete reqQuery[param])
+
+    // console.log(reqQuery);
+
+    // Creat query string
+    let queryStr = JSON.stringify(reqQuery);
+
+    // Create operators ($gt, $gte, etc)
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+    // console.log(queryStr);
+    // Find resource
+    query = LMS.find(JSON.parse(queryStr));
+    
+    // SELECT FIELD
+    if (req.query.select) {
+        const fields = req.query.select.split(',').join( ' ');
+        console.log(fields);
+        query.select(fields);
+        
+    }
+
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split('.').join(' ');
+        query = query.sort(sortBy)
+    } else { 
+        query = query.sort('-createdAt');
+    }
+    
+    // executing query
+    const data = await query;
     res.status(200).json({
         success: true,
         count: data.length,

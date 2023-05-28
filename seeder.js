@@ -35,7 +35,7 @@ const importData = async () => {
 // Delete Data
 const deleteData = async () => {
     try {
-        await LMS.deleteMany(lmsFile);
+        await LMS.deleteMany();
         console.log('Data Destroyed...'.red.inverse);
         process.exit();
     } catch (e) {
