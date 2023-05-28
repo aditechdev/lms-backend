@@ -8,13 +8,13 @@ const Bootcamp = require('../models/Lmsmodel');
 //@route    Get Api '/api/v1/bootcamp/:bootcampId/courses'
 //@acess    public
 
-exports.getCourses = asyncHandler(async (req, res, next) => { 
+exports.getCourses = asyncHandler(async (req, res, next) => {
 
     let query;
 
     if (req.params.bootcampId) {
         query = Course.find({ bootcamp: req.params.bootcampId });
-    } else { 
+    } else {
         query = Course.find();
     }
 
@@ -44,7 +44,7 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 
     if (!course) {
         return next(ErrorResponse(`No Course with the id ${req.params.id}`, 400))
-        
+
     }
     res.status(200).json({
         success: true,
@@ -58,24 +58,69 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 //@route    POST Api '/api/v1/bootcamp/:bootcampid/courses'
 //@acess    Private
 exports.createCourse = asyncHandler(async (req, res, next) => {
-   try {
-       req.body.bootcamp = req.params.bootcampId;
+    try {
+        req.body.bootcamp = req.params.bootcampId;
 
-       const bootcamp = await Bootcamp.findById(req.params.bootcampId);
+        const bootcamp = await Bootcamp.findById(req.params.bootcampId);
 
-       if (!bootcamp) {
-           return next(ErrorResponse(`No Bootcamp with the id ${req.params.bootcampId}`, 400))
-       }
+        if (!bootcamp) {
+            return next(ErrorResponse(`No Bootcamp with the id ${req.params.bootcampId}`, 400))
+        }
 
-       const course = await Course.create(req.body);
-       res.status(200).json({
-           success: true,
-           count: course.length,
-           data: course
-       })
-   } catch (e) {
-       return console.log(`${e}`);
-    
-   }
+        const course = await Course.create(req.body);
+        res.status(200).json({
+            success: true,
+            count: course.length,
+            data: course
+        })
+    } catch (e) {
+        return console.log(`${e}`);
+
+    }
+
+});
+
+//@desc     Delete single courses
+//@route    Delete Api '/api/v1/course/:courseId'
+//@acess    Private
+exports.deleteCourse = asyncHandler(async (req, res, next) => {
+
+    const course = await Course.findById(req.params.id);
+    if (!course) {
+        return next(
+            new ErrorResponse(`Courses not found of ${req.params.id}`, 400)
+        );
+    }
+    await Course.deleteOne();
+
+    res.status(200).json({
+        success: true,
+       
+        data: {}
+    });
+
+});
+
+//@desc     Update single courses
+//@route    PUT Api '/api/v1/course/:courseId'
+//@acess    Private
+exports.updateCourse = asyncHandler(async (req, res, next) => {
+
+    let course = await Course.findById(req.params.id);
+    if (!course) {
+        return next(
+            new ErrorResponse(`Courses not found of ${req.params.id}`, 400)
+        );    
+    }
+
+    course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+        new: true, 
+        runValidators: true
+    });
+
+    res.status(200).json({
+        success: true,
+        data: course
+    });
 
 });
