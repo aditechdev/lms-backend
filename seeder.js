@@ -8,7 +8,8 @@ dotEnv.config({ path: './config/config.env' });
 
 //Load Models
 const LMS = require('./models/Lmsmodel');
-const { json } = require('express');
+const Course = require('./models/Course');
+// const { json } = require('express');
 
 //Connect to DB
 mongoose.connect(process.env.MONGO_URI, {
@@ -18,11 +19,13 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Read Json Files
 const lmsFile = JSON.parse(fs.readFileSync(`${__dirname}/_data/bootcamps.json`, `utf-8`)) 
+const courseFile = JSON.parse(fs.readFileSync(`${__dirname}/_data/courses.json`, `utf-8`)) 
 
 // Import into DB
 const importData = async () => { 
     try {
         await LMS.create(lmsFile);
+        await Course.create(courseFile);
         console.log('Data Imported...'.green.inverse);
         process.exit();
     } catch (e) {
@@ -36,6 +39,7 @@ const importData = async () => {
 const deleteData = async () => {
     try {
         await LMS.deleteMany();
+        await Course.deleteMany();
         console.log('Data Destroyed...'.red.inverse);
         process.exit();
     } catch (e) {
