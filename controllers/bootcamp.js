@@ -1,4 +1,3 @@
-const errorHandler = require('../middleware/error');
 const ErrorResponse = require('../utils/errorResponse');
 const geoCode = require('../utils/geocoder');
 const LMS = require('../models/Lmsmodel');
