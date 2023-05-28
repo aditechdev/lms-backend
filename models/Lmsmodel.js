@@ -110,14 +110,14 @@ const LMSSchema = new mongoose.Schema({
 
 // Create lms slug from the name
 
-LMSSchema.pre('save', function (next) { 
-    this.slug = slugify(this.name, {lower: true});
+LMSSchema.pre('save', function (next) {
+    this.slug = slugify(this.name, { lower: true });
     // console.log("Slugify ran", this.name);
     next();
-})
+});
 
 // GeoCoder & Create Location Field
-LMSSchema.pre('save', async function (next) { 
+LMSSchema.pre('save', async function (next) {
     const loc = await geoCoder.geocode(this.address);
     this.location = {
         type: 'Point',
@@ -133,7 +133,14 @@ LMSSchema.pre('save', async function (next) {
     // DO not save address in DB
     this.address = undefined;
     next();
-})
+});
+
+// Cascade delete course when a bootcam is deleted
+LMSSchema.pre('deleteOne', { document: true, query: true }, async function (next) {
+    console.log(`courses being removed ${this._id}`);
+    await this.model('Course').deleteMany({ bootcamp: this._id });
+    next();
+});
 
 LMSSchema.virtual('courses', {
     ref: 'Course',

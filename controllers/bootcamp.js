@@ -136,14 +136,23 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
 //@acess    Private
 exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
 
-    const lms = await LMS.findByIdAndDelete(req.params.id);
+    const lms = await LMS.findById(req.params.id);
     if (!lms) {
         return next(new ErrorResponse(`Resources not found of ${req.params.id}`, 404));
     }
+
+    // await lms.remove();
+    // await lms.remove(
+
+    // );
+    // await LMS.deleteOne();
+    // lms.remove();
+    await lms.deleteOne();
     res.status(200).json({
         success: true,
         data: {}
     })
+
 
 });
 
