@@ -5,6 +5,7 @@ const colors = require('colors');
 const morgan = require("morgan");
 const errorHandler = require("./middleware/error");
 
+
 const connectDb = require("./config/db")
 
 
@@ -16,6 +17,7 @@ connectDb();
 
 // Route file
 const bootcamp = require('./routes/bootcamp');
+const courses = require('./routes/courses')
 const app = express();
 
 // Body Parser
@@ -31,8 +33,9 @@ if (process.env.NODE_ENV == "development") {
     app.use(morgan('dev'));
     
 }
-
+//Mount routers
 app.use('/api/v1/bootcamp', bootcamp);
+app.use('/api/v1/courses', courses);
 app.use(errorHandler);
 
 
