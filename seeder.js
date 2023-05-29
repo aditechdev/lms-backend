@@ -25,7 +25,7 @@ const courseFile = JSON.parse(fs.readFileSync(`${__dirname}/_data/courses.json`,
 const importData = async () => { 
     try {
         await LMS.create(lmsFile);
-        // await Course.create(courseFile);
+        await Course.create(courseFile);
         console.log('Data Imported...'.green.inverse);
         process.exit();
     } catch (e) {
