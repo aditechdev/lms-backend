@@ -1,3 +1,4 @@
+const path = require('path');
 const ErrorResponse = require('../utils/errorResponse');
 const geoCode = require('../utils/geocoder');
 const LMS = require('../models/Lmsmodel');
@@ -191,4 +192,51 @@ exports.getBootcampInRadius = asyncHandler(async (req, res, next) => {
         data: bootcamp
     })
 
+});
+
+
+//@desc     Upload Photo for  bootcamp
+//@route    PUT Api '/api/v1/bootcamp/:id/photo'
+//@acess    Private
+exports.bootcampPhotUpload = asyncHandler(async (req, res, next) => {
+
+    const lms = await LMS.findById(req.params.id);
+    if (!lms) {
+        return next(new ErrorResponse(`Resources not found of ${req.params.id}`, 404));
+    }
+
+    if (!req.files) {
+        return next(new ErrorResponse(`Please upload file`, 400));
+    }
+    const files = req.files.file;
+    
+    // Make sure the image is photo
+    if (!files.mimetype.startsWith("image")) {
+        return next(new ErrorResponse(`Please upload an image file`, 400));
+    }
+
+    //Check File Size
+    if (!files.size > process.env.MAX_FILE_UPLOAD) {
+        return next(new ErrorResponse(`Please upload an image file less than ${process.env.MAX_FILE_UPLOAD}`, 400));
+    }
+
+    // Create custom filename
+    files.name = `photo_${lms._id}${path.parse(files.name).ext}`;
+    files.mv(`${process.env.FILE_UPLOAD_PATH}/${files.name}`, async err => { 
+
+        if (err) {
+            console.error(err);
+            return next(new ErrorResponse(`PROBLEM WITH FILE UPLOAD`, 500));
+
+            
+        }
+        await LMS.findByIdAndUpdate(req.params.id, {
+            photo: files.name
+        });
+        return res.status(200).json({
+            success: true,
+            data: files.name
+        });
+    });
+    // console.log(files.name);
 });
