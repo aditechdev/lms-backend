@@ -9,6 +9,7 @@
 - colors
 - slugify
 - node-geocoder
+- express-fileupload
 
 ## Task in this project
 - Setup Productiion and Development Environment
