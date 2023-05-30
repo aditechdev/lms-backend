@@ -6,6 +6,7 @@ const colors = require('colors');
 const morgan = require("morgan");
 const errorHandler = require("./middleware/error");
 const fileUpload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 
 
 const connectDb = require("./config/db")
@@ -27,7 +28,8 @@ const app = express();
 app.use(express.json());
 
 
-// Mount router
+// Cookie Parser
+app.use(cookieParser());
 
 
 // app.use(logger);
