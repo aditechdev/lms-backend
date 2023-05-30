@@ -10,6 +10,8 @@
 - slugify
 - node-geocoder
 - express-fileupload
+- jsonwebtoken
+- bcryptjs
 
 ## Task in this project
 - Setup Productiion and Development Environment
