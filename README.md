@@ -12,6 +12,7 @@
 - express-fileupload
 - jsonwebtoken
 - bcryptjs
+- cookie-parser
 
 ## Task in this project
 - Setup Productiion and Development Environment
