@@ -19,7 +19,8 @@ connectDb();
 
 // Route file
 const bootcamp = require('./routes/bootcamp');
-const courses = require('./routes/courses')
+const courses = require('./routes/courses');
+const auth = require('./routes/auth');
 const app = express();
 
 // Body Parser
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Mount routers
 app.use('/api/v1/bootcamp', bootcamp);
 app.use('/api/v1/courses', courses);
+app.use('/api/v1/auth', auth);
 app.use(errorHandler);
 
 
