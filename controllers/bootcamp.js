@@ -8,7 +8,7 @@ const asyncHandler = require('../middleware/async');
 //@route    Get Api '/api/v1/bootcamp'
 //@acess    public
 exports.getBootcamp = asyncHandler(async (req, res, next) => {
-   
+
     res.status(200).json(res.advancedResult);
 
 });
@@ -33,6 +33,20 @@ exports.getSingleBootcamp = asyncHandler(async (req, res, next) => {
 //@route    POST Api '/api/v1/bootcamp/:id'
 //@acess    Private
 exports.createBootcamp = asyncHandler(async (req, res, next) => {
+    // Add User to req,body
+    req.body.user = req.user.id;
+
+    //Check for publish bootcamp
+    const publishBootcamp = await LMS.findOne({ user: req.user.id });
+
+    // If the user is not an admin, they can only add one bootcamp
+    if (publishBootcamp && req.user.role !== 'admin') {
+
+        return next(new ErrorResponse(`User with Id ${req.user.id} has already published a bootcamp`, 400))
+
+    }
+
+
     // console.log(req.body);
 
     const lms = await LMS.create(req.body);
@@ -114,7 +128,7 @@ exports.getBootcampInRadius = asyncHandler(async (req, res, next) => {
         }
 
     });
-   
+
     res.status(200).json({
         success: true,
         count: bootcamp.length,
@@ -138,7 +152,7 @@ exports.bootcampPhotUpload = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse(`Please upload file`, 400));
     }
     const files = req.files.file;
-    
+
     // Make sure the image is photo
     if (!files.mimetype.startsWith("image")) {
         return next(new ErrorResponse(`Please upload an image file`, 400));
@@ -151,13 +165,13 @@ exports.bootcampPhotUpload = asyncHandler(async (req, res, next) => {
 
     // Create custom filename
     files.name = `photo_${lms._id}${path.parse(files.name).ext}`;
-    files.mv(`${process.env.FILE_UPLOAD_PATH}/${files.name}`, async err => { 
+    files.mv(`${process.env.FILE_UPLOAD_PATH}/${files.name}`, async err => {
 
         if (err) {
             console.error(err);
             return next(new ErrorResponse(`PROBLEM WITH FILE UPLOAD`, 500));
 
-            
+
         }
         await LMS.findByIdAndUpdate(req.params.id, {
             photo: files.name
