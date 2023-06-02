@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/User');
 const asyncHandler = require('../middleware/async');
@@ -33,20 +34,20 @@ exports.register = asyncHandler(async (req, res, next) => {
 exports.signIn = asyncHandler(async (req, res, next) => {
 
     const { email, password } = req.body;
-    
+
     //Validate email and password
     if (!email || !password) {
 
         return next(new ErrorResponse("Please provide an email and password", 400));
-        
+
     }
 
     // Check for user
     const user = await User.findOne({ email }).select('+password');
-    
+
     if (!user) {
         return next(new ErrorResponse("Invalid credentials", 401));
-        
+
     }
 
     // Check if password matches
@@ -60,7 +61,7 @@ exports.signIn = asyncHandler(async (req, res, next) => {
     // res.status(200).json({
     //     success: true, token
     // });
-    sendTokenResponse(user, 200, res)
+    sendTokenResponse(user, 200, res);
 
 });
 
@@ -109,24 +110,25 @@ exports.getMe = asyncHandler(async (req, res, next) => {
     // sendTokenResponse(user, 200, res)
 
 });
+
 //@desc     Forget Password
 //@route    Post Api '/api/v1/auth/forgotPassword'
 //@acess    public
-exports.resetPassword = asyncHandler(async (req, res, next) => {
+exports.forgetPassword = asyncHandler(async (req, res, next) => {
 
     const user = await User.findOne({ email: req.body.email });
-    
+
     if (!user) {
         return next(new ErrorResponse("No user with this email", 400))
-        
+
     }
 
     const getResetToken = user.getResetPasswordToken();
 
     await user.save({ validateBeforeSave: false });
-    
+
     // Create reset URL
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/resetPassword/${getResetToken}`;
+    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/resetPassword/${getResetToken}`;
 
     const message = `You are receiving this email because you (or someone else) has requested the reset password. Please make a PUT request to: \n\n${resetUrl}`;
 
@@ -142,7 +144,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
             success: true,
             data: 'Email Sent'
         });
-        
+
     } catch (error) {
 
         console.log(error);
@@ -154,45 +156,34 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
         return next(new ErrorResponse("Email could not be sent", 500));
 
+    }
+
+});
+
+//@desc     reset Password
+//@route    Put Api '/api/v1/auth/resetPassword/:resetToken'
+//@acess    public
+exports.resetPassword = asyncHandler(async (req, res, next) => {
+
+    // GetHashed Token
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.resetToken).digest('hex');
+
+    const user = await User.findOne({
+        resetPasswordToken, resetPasswordExpire: { $gt: Date.now() }
+    });
+
+    if (!user) {
+        return next(new ErrorResponse('Invalid Token', 400))
         
     }
 
-    // console.log(getResetToken);
+    // Set the new password
+    user.password = req.body.password;
+    user.resetPasswordExpire = undefined;
+    user.resetPasswordToken = undefined;
+    await user.save();
 
-    // res.status(200).json({
-    //     status: 200,
-    //     data: user
-    // });
-
-    // const { email, password } = req.body;
-
-    // //Validate email and password
-    // if (!email || !password) {
-
-    //     return next(new ErrorResponse("Please provide an email and password", 400));
-
-    // }
-
-    // // Check for user
-    // const user = await User.findOne({ email }).select('+password');
-
-    // if (!user) {
-    //     return next(new ErrorResponse("Invalid credentials", 401));
-
-    // }
-
-    // // Check if password matches
-    // const isMatch = await user.matchPassword(password);
-    // if (!isMatch) {
-    //     return next(new ErrorResponse("Invalid credentials", 401));
-    // }
-
-    // // const token = user.getSignedJwtToken();
-
-    // // res.status(200).json({
-    // //     success: true, token
-    // // });
-    // sendTokenResponse(user, 200, res)
+    sendTokenResponse(user, 200, res);
 
 });
 
