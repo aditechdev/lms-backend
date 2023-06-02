@@ -97,6 +97,10 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
     // );
     // await LMS.deleteOne();
     // lms.remove();
+    // Make sure user is bootcamp owner
+    if (lms.user.toString() != req.user.id && req.user.role !== "admin") {
+        return next(new ErrorResponse(`User ${req.params.id} is not authorised to delete the bootcamp ${req.params.id}`, 401));
+    }
     await lms.deleteOne();
     res.status(200).json({
         success: true,
