@@ -158,6 +158,11 @@ exports.bootcampPhotUpload = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse(`Resources not found of ${req.params.id}`, 404));
     }
 
+    // Make sure user is bootcamp owner
+    if (lms.user.toString() != req.user.id && req.user.role !== "admin") {
+        return next(new ErrorResponse(`User ${req.params.id} is not authorised to update the bootcamp ${req.params.id}`, 401));
+    }
+
     if (!req.files) {
         return next(new ErrorResponse(`Please upload file`, 400));
     }
