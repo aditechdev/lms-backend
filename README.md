@@ -13,6 +13,7 @@
 - jsonwebtoken
 - bcryptjs
 - cookie-parser
+- nodemailer
 
 ## Task in this project
 - Setup Productiion and Development Environment
