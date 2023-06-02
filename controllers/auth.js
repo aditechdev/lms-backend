@@ -174,7 +174,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
     if (!user) {
         return next(new ErrorResponse('Invalid Token', 400))
-        
+
     }
 
     // Set the new password
@@ -184,6 +184,27 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     await user.save();
 
     sendTokenResponse(user, 200, res);
+
+});
+//@desc     Update User details
+//@route    Put Api '/api/v1/auth/updateDetails'
+//@acess    private
+exports.updateDetails = asyncHandler(async (req, res, next) => {
+
+    const fieldsToUpdate = {
+        name: req.body.name,
+        email: req.body.email
+    }
+
+    const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+        new: true,
+        runValidators: true
+    });
+    
+    res.status(200).json({
+        success: true,
+        data: user
+    });
 
 });
 
