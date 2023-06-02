@@ -186,6 +186,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     sendTokenResponse(user, 200, res);
 
 });
+
 //@desc     Update User details
 //@route    Put Api '/api/v1/auth/updateDetails'
 //@acess    private
@@ -205,6 +206,24 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
         success: true,
         data: user
     });
+
+});
+
+//@desc     Update Password
+//@route    Put Api '/api/v1/auth/updatePassword'
+//@acess    private
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select('+password');
+
+    // check current password
+    if (!(await user.matchPassword(req.body.currentPassword))) {
+        return next(new ErrorResponse('Incorect Password', 400));
+        
+    }
+    user.password = req.body.newPassword;
+    await user.save();
+
+    sendTokenResponse(user, 200, res);
 
 });
 
