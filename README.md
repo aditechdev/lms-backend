@@ -26,3 +26,5 @@
 ## Other
 For geo coding
 https://developer.mapquest.com/user/me/profile
+For mail
+https://mailtrap.io/home
