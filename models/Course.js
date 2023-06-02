@@ -40,6 +40,11 @@ const CourseSchema = mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'LMS',
         required: true
+    },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: true
     }
 
 });
