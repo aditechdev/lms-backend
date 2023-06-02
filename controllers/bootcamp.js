@@ -62,15 +62,21 @@ exports.createBootcamp = asyncHandler(async (req, res, next) => {
 //@acess    Private
 exports.updateBootcamp = asyncHandler(async (req, res, next) => {
 
-    const lms = await LMS.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true
-    });
+    let lms = await LMS.findById(req.params.id);
 
     if (!lms) {
         return next(new ErrorResponse(`Resources not found of ${req.params.id}`, 404));
 
     }
+    // Make sure user is bootcamp owner
+    if (lms.user.toString() != req.user.id && req.user.role !== "admin") {
+        return next(new ErrorResponse(`User ${req.params.id} is not authorised to update the bootcamp ${req.params.id}`, 401));
+    }
+
+    lms = await LMS.findOneAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
     res.status(200).json({ success: true, data: lms });
 
 });
