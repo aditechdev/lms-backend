@@ -1,12 +1,13 @@
 const express = require('express');
 
 const {
-    getReviews
+    getReviews, getReview
 } = require('../controllers/reviews');
+
+const router = express.Router({ mergeParams: true });
 
 const Review = require('../models/Review');
 
-const router = express.Router({ mergeParams: true });
 
 const advancedResult = require('../middleware/advancedResult');
 
@@ -17,6 +18,7 @@ router.route('/').get(advancedResult(Review, {
     path: 'bootcamp',
     select: 'name description'
 }), getReviews);
-// router.route('/:id').get(getCourse).put(protect, authorize('admin', 'publisher'), updateCourse).delete(protect, authorize('admin', 'publisher'), deleteCourse);
+
+router.route('/:id').get(getReview);
 
 module.exports = router;

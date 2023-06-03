@@ -21,7 +21,7 @@ const router = express.Router();
 
 //Re-route into other resource router
 router.use('/:bootcampId/courses', courseRouter);
-router.use('/:bootcamp/reviews', reviewRouter);
+router.use('/:bootcampId/reviews', reviewRouter);
 
 
 router.route('/radius/:zipcode/:distance').get(
