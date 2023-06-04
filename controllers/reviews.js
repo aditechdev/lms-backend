@@ -69,3 +69,34 @@ exports.addReview = asyncHandler(async (req, res, next) => {
     });
 
 });
+
+//@desc     Update Reviews
+//@route    Put Api '/api/v1/bootcamp/:bootcampId/reviews'
+//@acess    private
+exports.updateReview = asyncHandler(async (req, res, next) => {
+     let review = await Review.findById(req.params.id);
+
+    if (!review) {
+        return next(new ErrorResponse(`No bootcamp with id ${req.params.id}`, 400));
+    }
+
+    // Make sure the review belong to user or admin
+
+    if (review.user.toString() !== review.user.id && review.user.role !== "admin") {
+        if (!review) {
+            return next(new ErrorResponse(`Not authorised to update bootcamp`, 401));
+        }
+    }
+
+    review = await Review.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        success: true,
+        data: review
+    });
+
+});
+
