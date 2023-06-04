@@ -9,6 +9,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 const hpp = require('hpp');
 const errorHandler = require("./middleware/error");
 const cookieParser = require('cookie-parser');
@@ -67,6 +68,8 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+// Cors
+app.use(cors());
 
 // Hpp http param polution 
 
