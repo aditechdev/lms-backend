@@ -109,7 +109,7 @@ Created the backend for a bootcamp directory website.
 - [ ] Install an SSL using Let's Encrypt
 
 ## List of Package Used
-- .env
+- dotenv
 - express
 - nodemon
 - morgan
@@ -123,13 +123,17 @@ Created the backend for a bootcamp directory website.
 - cookie-parser
 - nodemailer
 - express-mongo-sanitize
+- cors
+- express-rate-limit
+- helmet
+- hpp
+- xss-clean
 
 
 
 
 ## Note
 - npm run dev => to run development mode
-- run seeder file node seeder -i
 
 ## Other
 For geo coding
@@ -161,7 +165,7 @@ Rename "config/config.env.env" to config/config.env and update value and setting
 npm install
 ```
 
-## Run App
+## Run App in dev
 ```
 npm run dev
 ```
@@ -171,5 +175,12 @@ npm run dev
 npm start
 ```
 
+## Upload by seeader
+```
+- run seeder file node seeder -i
+```
+
 - version 1.0.0
 - Licence: MIT
+
+###Helpful Links
