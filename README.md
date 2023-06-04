@@ -1,100 +1,102 @@
-## Task in this project
+
 
 ## Project Name: DevCamper Backend API Specifications
 Created the backend for a bootcamp directory website.
+
+## Task in this project
 ### Bootcamps
-- List all bootcamps in the database
-   * Pagination
-   * Select specific fields in result
-   * Limit number of results
-   * Filter by fields
-- Search bootcamps by radius from zipcode
-  * Use a geocoder to get exact location and coords from a single address field
-- Get single bootcamp
-- Create new bootcamp
-  * Authenticated users only
-  * Must have the role "publisher" or "admin"
-  * Only one bootcamp per publisher (admins can create more)
-  * Field validation via Mongoose
-- Upload a photo for bootcamp
-  * Owner only
-  * Photo will be uploaded to local filesystem
-- Update bootcamps
-  * Owner only
-  * Validation on update
-- Delete Bootcamp
-  * Owner only
-- Calculate the average cost of all courses for a bootcamp
-- Calculate the average rating from the reviews for a bootcamp
+- [x] List all bootcamps in the database
+   * [x] Pagination
+   * [x] Select specific fields in result
+   * [x] Limit number of results
+   * [x] Filter by fields
+- [x] Search bootcamps by radius from zipcode
+  * [x] Use a geocoder to get exact location and coords from a single address field
+- [x] Get single bootcamp
+- [x] Create new bootcamp
+  * [x] Authenticated users only
+  * [x] Must have the role "publisher" or "admin"
+  * [x] Only one bootcamp per publisher (admins can create more)
+  * [x] Field validation via Mongoose
+- [x] Upload a photo for bootcamp
+  * [x] Owner only
+  * [x] Photo will be uploaded to local filesystem
+- [x] Update bootcamps
+  * [x] Owner only
+  * [x] Validation on update
+- [x] Delete Bootcamp
+  * [x] Owner only
+- [x] Calculate the average cost of all courses for a bootcamp
+- [x] Calculate the average rating from the reviews for a bootcamp
 
 ### Courses
-- List all courses for bootcamp
-- List all courses in general
-  * Pagination, filtering, etc
-- Get single course
-- Create new course
-  * Authenticated users only
-  * Must have the role "publisher" or "admin"
-  * Only the owner or an admin can create a course for a bootcamp
-  * Publishers can create multiple courses
-- Update course
-  * Owner only
-- Delete course
-  * Owner only
+- [x] List all courses for bootcamp
+- [x] List all courses in general
+  * [x] Pagination, filtering, etc
+- [x] Get single course
+- [x] Create new course
+  * [x] Authenticated users only
+  * [x] Must have the role "publisher" or "admin"
+  * [x] Only the owner or an admin can create a course for a bootcamp
+  * [x] Publishers can create multiple courses
+- [x] Update course
+  * [x] Owner only
+- [x] Delete course
+  * [x] Owner only
   
 ### Reviews
-- List all reviews for a bootcamp
-- List all reviews in general
-  * Pagination, filtering, etc
-- Get a single review
-- Create a review
-  * Authenticated users only
-  * Must have the role "user" or "admin" (no publishers)
-- Update review
-  * Owner only
-- Delete review
-  * Owner only
+- [x] List all reviews for a bootcamp
+- [x] List all reviews in general
+  * [x] Pagination, filtering, etc
+- [x] Get a single review
+- [x] Create a review
+  * [x] Authenticated users only
+  * [x] Must have the role "user" or "admin" (no publishers)
+- [x] Update review
+  * [x] Owner only
+- [x] Delete review
+  * [x] Owner only
 
 ### Users & Authentication
-- Authentication will be ton using JWT/cookies
-  * JWT and cookie should expire in 30 days
-- User registration
-  * Register as a "user" or "publisher"
-  * Once registered, a token will be sent along with a cookie (token = xxx)
-  * Passwords must be hashed
-- User login
-  * User can login with email and password
-  * Plain text password will compare with stored hashed password
-  * Once logged in, a token will be sent along with a cookie (token = xxx)
-- User logout
-  * Cookie will be sent to set token = none
-- Get user
-  * Route to get the currently logged in user (via token)
-- Password reset (lost password)
-  * User can request to reset password
-  * A hashed token will be emailed to the users registered email address
-  * A put request can be made to the generated url to reset password
-  * The token will expire after 10 minutes
-- Update user info
-  * Authenticated user only
-  * Separate route to update password
-- User CRUD
-  * Admin only
-- Users can only be made admin by updating the database field manually
+- [x] Authentication will be ton using JWT/cookies
+  * [x] JWT and cookie should expire in 30 days
+- [x] User registration
+  * [x] Register as a "user" or "publisher"
+  * [x] Once registered, a token will be sent along with a cookie (token = xxx)
+  * [x] Passwords must be hashed
+- [x] User login
+  * [x] User can login with email and password
+  * [x] Plain text password will compare with stored hashed password
+  * [x] Once logged in, a token will be sent along with a cookie (token = xxx)
+- [x] User logout
+  * [x] Cookie will be sent to set token = none
+- [x] Get user
+  * [x] Route to get the currently logged in user (via token)
+- [x] Password reset (lost password)
+  * [x] User can request to reset password
+  * [x] A hashed token will be emailed to the users registered email address
+  * [x] A put request can be made to the generated url to reset password
+  * [x] The token will expire after 10 minutes
+- [x] Update user info
+  * [x] Authenticated user only
+  * [x] Separate route to update password
+- [x] User CRUD
+  * [x] Admin only
+- vUsers can only be made admin by updating the database field manually
 
 ## Security
-- Encrypt passwords and reset tokens
-- Prevent cross site scripting - XSS
-- Prevent NoSQL injections
-- Add a rate limit for requests of 100 requests per 10 minutes
-- Protect against http param polution
-- Add headers for security (helmet)
-- Use cors to make API public (for now)
+- [x] Encrypt passwords and reset tokens
+- [x] Prevent cross site scripting - XSS
+- [x] Prevent NoSQL injections
+- [x] Add a rate limit for requests of 100 requests per 10 minutes
+- [x] Protect against http param polution
+- [x] Add headers for security (helmet)
+- [x] Use cors to make API public (for now)
 
 ## Documentation
-- Use Postman to create documentation
-- Use docgen to create HTML files from Postman
-- Add html files as the / route for the api
+- [x] Use Postman to create documentation
+- [x] Use docgen to create HTML files from Postman
+- [x] Add html files as the / route for the api
 
 ## Deployment (Digital Ocean)
 - [x] Push to Github
@@ -157,14 +159,14 @@ Rename "config/config.env.env" to config/config.env and update value and setting
 ##Install Dependecy
 ```
 npm install
-``
+```
 
 ## Run App
 ```
 npm run dev
 ```
 
-## RUn in prod
+## Run in prod
 ```
 npm start
 ```
