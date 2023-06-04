@@ -10,7 +10,7 @@ const errorHandler = (error, req, res, next) => {
 
     // Moongoose Error
     if (error.name === "CastError") {
-        const message = `Resources not found of ${error.value}`;
+        const message = `Resources not found`;
         e = new ErrorResponse(message, 404)
     }
 

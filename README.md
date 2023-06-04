@@ -14,6 +14,7 @@
 - bcryptjs
 - cookie-parser
 - nodemailer
+- express-mongo-sanitize
 
 ## Task in this project
 - Setup Productiion and Development Environment
@@ -29,3 +30,5 @@ For geo coding
 https://developer.mapquest.com/user/me/profile
 For mail
 https://mailtrap.io/home
+Sql Ingection
+https://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb
