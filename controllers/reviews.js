@@ -58,7 +58,7 @@ exports.addReview = asyncHandler(async (req, res, next) => {
     const bootcamp = await Bootcamp.findById(req.params.bootcampId);
 
     if (!bootcamp) {
-        return next(new ErrorResponse("No bootcamp with id ${req.params.bootcampId}", 400));
+        return next(new ErrorResponse(`No bootcamp with id ${req.params.bootcampId}`, 400));
     }
 
     const review = await Review.create(req.body);
