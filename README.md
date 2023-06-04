@@ -175,9 +175,13 @@ npm run dev
 npm start
 ```
 
-## Upload by seeader
+### Upload by seeader
 ```
-- run seeder file node seeder -i
+node seeder -i
+```
+### Delete BD
+```
+node seeder -d
 ```
 
 - version 1.0.0
