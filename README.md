@@ -129,33 +129,6 @@ Created the backend for a bootcamp directory website.
 - hpp
 - xss-clean
 
-
-
-
-## Note
-- npm run dev => to run development mode
-
-## Other
-For geo coding
-
-https://developer.mapquest.com/user/me/profile
-
-
-For mail
-
-https://mailtrap.io/home
-
-
-Sql Ingection
-
-https://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb
-
-https://documenter.getpostman.com/view/21155935/2s93sW9bCZ#66ebbd59-d984-41bb-8061-7e7347ccbb64
-
-https://github.com/thedevsaddam/docgen
-
-docgen build -i dc_postman_collection.json -o index.html
-
 ##Usage
 
 Rename "config/config.env.env" to config/config.env and update value and setting
@@ -183,8 +156,28 @@ node seeder -i
 ```
 node seeder -d
 ```
-
+### Build doc
+```
+docgen build -i dc_postman_collection.json -o index.html
+```
 - version 1.0.0
 - Licence: MIT
 
 ###Helpful Links
+For geo coding
+
+https://developer.mapquest.com/user/me/profile
+
+
+For mail
+
+https://mailtrap.io/home
+
+
+Sql Ingection
+
+https://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb
+
+https://documenter.getpostman.com/view/21155935/2s93sW9bCZ#66ebbd59-d984-41bb-8061-7e7347ccbb64
+
+https://github.com/thedevsaddam/docgen
