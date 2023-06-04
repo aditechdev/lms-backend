@@ -8,6 +8,8 @@ const fileUpload = require('express-fileupload');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
 const errorHandler = require("./middleware/error");
 const cookieParser = require('cookie-parser');
 
@@ -56,6 +58,19 @@ app.use(helmet());
 // Prevent XSS attaack
 app.use(xss());
 
+// Rate limiting
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, 
+    max: 100
+
+});
+
+app.use(limiter);
+
+
+// Hpp http param polution 
+
+app.use(hpp());
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
