@@ -1,25 +1,7 @@
-# lms-backend
-
-## List of Package Used
-- .env
-- express
-- nodemon
-- morgan
-- mongoose
-- colors
-- slugify
-- node-geocoder
-- express-fileupload
-- jsonwebtoken
-- bcryptjs
-- cookie-parser
-- nodemailer
-- express-mongo-sanitize
-
 ## Task in this project
 
-# DevCamper Backend API Specifications
-Create the backend for a bootcamp directory website.
+## Project Name: DevCamper Backend API Specifications
+Created the backend for a bootcamp directory website.
 ### Bootcamps
 - List all bootcamps in the database
    * Pagination
@@ -123,6 +105,24 @@ Create the backend for a bootcamp directory website.
 - [ ] Create an NGINX reverse proxy for port 80
 - [ ] Connect a domain name
 - [ ] Install an SSL using Let's Encrypt
+
+## List of Package Used
+- .env
+- express
+- nodemon
+- morgan
+- mongoose
+- colors
+- slugify
+- node-geocoder
+- express-fileupload
+- jsonwebtoken
+- bcryptjs
+- cookie-parser
+- nodemailer
+- express-mongo-sanitize
+
+
 
 
 ## Note
