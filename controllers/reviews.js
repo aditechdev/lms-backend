@@ -71,7 +71,7 @@ exports.addReview = asyncHandler(async (req, res, next) => {
 });
 
 //@desc     Update Reviews
-//@route    Put Api '/api/v1/bootcamp/:bootcampId/reviews'
+//@route    Put Api '/api/v1/reviews/:reviewid'
 //@acess    private
 exports.updateReview = asyncHandler(async (req, res, next) => {
      let review = await Review.findById(req.params.id);
@@ -96,6 +96,33 @@ exports.updateReview = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         data: review
+    });
+
+});
+
+//@desc     Delete Reviews
+//@route    Delete Api '/api/v1/reviews/:reviewId'
+//@acess    private
+exports.deleteReview = asyncHandler(async (req, res, next) => {
+     const review = await Review.findById(req.params.id);
+
+    if (!review) {
+        return next(new ErrorResponse(`No bootcamp with id ${req.params.id}`, 400));
+    }
+
+    // Make sure the review belong to user or admin
+
+    if (review.user.toString() !== review.user.id && review.user.role !== "admin") {
+        if (!review) {
+            return next(new ErrorResponse(`Not authorised to update bootcamp`, 401));
+        }
+    }
+
+    await review.deleteOne();
+
+    res.status(200).json({
+        success: true,
+        data: {}
     });
 
 });
