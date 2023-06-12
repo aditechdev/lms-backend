@@ -1,5 +1,3 @@
-
-
 ## Project Name: DevCamper Backend API Specifications
 Created the backend for a bootcamp directory website.
 
@@ -129,21 +127,22 @@ Created the backend for a bootcamp directory website.
 - hpp
 - xss-clean
 
-##Usage
-
+### Usage
+```
 Rename "config/config.env.env" to config/config.env and update value and setting
+```
 
-##Install Dependecy
+### Install Dependecy
 ```
 npm install
 ```
 
-## Run App in dev
+### Run App in dev
 ```
 npm run dev
 ```
 
-## Run in prod
+### Run in prod
 ```
 npm start
 ```
@@ -163,21 +162,15 @@ docgen build -i dc_postman_collection.json -o index.html
 - version 1.0.0
 - Licence: MIT
 
-###Helpful Links
-For geo coding
+### Helpful Links
+- For geo coding
+  * https://developer.mapquest.com/user/me/profile
 
-https://developer.mapquest.com/user/me/profile
+- For mail
+ * https://mailtrap.io/home
 
+- Sql Ingection
 
-For mail
-
-https://mailtrap.io/home
-
-
-Sql Ingection
-
-https://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb
-
-https://documenter.getpostman.com/view/21155935/2s93sW9bCZ#66ebbd59-d984-41bb-8061-7e7347ccbb64
-
-https://github.com/thedevsaddam/docgen
+* https://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb
+* https://documenter.getpostman.com/view/21155935/2s93sW9bCZ#66ebbd59-d984-41bb-8061-7e7347ccbb64
+* https://github.com/thedevsaddam/docgen
