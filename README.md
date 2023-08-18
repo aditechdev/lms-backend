@@ -177,3 +177,5 @@ docgen build -i dc_postman_collection.json -o index.html
 
 
 git rm -r --cached node_modules
+
+git rm -r --cached node_modules
